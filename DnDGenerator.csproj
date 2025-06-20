@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+	 <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Include="System.Console" Static="true" />
+		<Using Include="System.Environment" Static="true"/>
+		<Using Include="System.IO.Path" Static="true"/>
+	</ItemGroup>
+</Project>

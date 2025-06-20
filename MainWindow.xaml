@@ -1,0 +1,66 @@
+﻿<Window x:Class="DnDGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DnDGenerator"
+        mc:Ignorable="d"
+        xmlns:viewmodels="clr-namespace:DnDGenerator.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        ThemeMode="System"
+        WindowState="Maximized"
+        ScrollViewer.CanContentScroll="True"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="0" HorizontalAlignment="Center" x:Name="GenerateRegion" 
+                Content="Generate Region" Command="{Binding GenerateRegionCommand}"/>
+
+        <Button Grid.Column="1" HorizontalAlignment="Center" x:Name="ExportButton" 
+        Content="Export region" Command="{Binding ExportRegionCommand}"/>
+
+        <Button Grid.Column="3" HorizontalAlignment="Center" x:Name="LoadButton" 
+Content="Load region" Command="{Binding ImportRegionCommand}"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion,
+    Mode=TwoWay}">
+        </DataGrid>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile,
+            Mode=TwoWay}">
+        </DataGrid>
+
+        <ContentControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="2" 
+                        Margin="15"
+                        Content="{Binding SelectedTile}">
+        </ContentControl>
+
+        <ItemsControl Grid.Row="4" ItemsSource="{Binding TilesSorted}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="5"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </Grid>
+</Window>

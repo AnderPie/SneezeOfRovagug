@@ -1,0 +1,6 @@
+C:\Users\fuzzy\Desktop\PathfinderGeneratorV0.01\DnDGenerator.exe
+C:\Users\fuzzy\Desktop\PathfinderGeneratorV0.01\DnDGenerator.dll
+C:\Users\fuzzy\Desktop\PathfinderGeneratorV0.01\DnDGenerator.deps.json
+C:\Users\fuzzy\Desktop\PathfinderGeneratorV0.01\DnDGenerator.runtimeconfig.json
+C:\Users\fuzzy\Desktop\PathfinderGeneratorV0.01\DnDGenerator.pdb
+C:\Users\fuzzy\Desktop\PathfinderGeneratorV0.01\CommunityToolkit.Mvvm.dll
