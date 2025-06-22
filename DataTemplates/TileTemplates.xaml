@@ -4,129 +4,182 @@
                     x:Class="DnDGenerator.DataTemplates.TitleTemplates"
                     >
     <DataTemplate DataType="{x:Type local:Settlement}">
-        <StackPanel>
-            <TextBlock Text="Settlement Info" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Name}" />
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Primary industries: "/>
-                <ItemsControl ItemsSource="{Binding MainIndustries}" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Neighbors: "/>
-                <DataGrid ItemsSource="{Binding Neighbors}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Primary Race: "/>
-                <TextBlock Text="{Binding PrimaryRace}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Seconary Race: "/>
-                <TextBlock Text="{Binding SecondaryRace}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Tertiary Race: "/>
-                <TextBlock Text="{Binding TertiaryRace}" />
-            </StackPanel>
-            <DataGrid ItemsSource="{Binding ImportantPeople}"/>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Conditions: "/>
-                <ListBox ItemsSource="{Binding Conditions}"/>
-            </StackPanel>
-        </StackPanel>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type local:Wilderness}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Margin="10">
-                <TextBlock Text="Wilderness Info" FontWeight="Bold"/>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="Settlement Info" FontWeight="Bold"/>
                 <TextBlock Text="{Binding Name}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Primary industries: "/>
+                    <ItemsControl ItemsSource="{Binding MainIndustries}" />
+                </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Neighbors: "/>
                     <DataGrid ItemsSource="{Binding Neighbors}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Primary Race: "/>
+                    <TextBlock Text="{Binding PrimaryRace}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Seconary Race: "/>
+                    <TextBlock Text="{Binding SecondaryRace}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Tertiary Race: "/>
+                    <TextBlock Text="{Binding TertiaryRace}" />
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding ImportantPeople}"/>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Conditions: "/>
+                    <ListBox ItemsSource="{Binding Conditions}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:Wilderness}">
+        <ScrollViewer>
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Wilderness Info" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Name}" />
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Features"/>
-                        <ListBox ItemsSource="{Binding FeaturesString}"/>
+                        <TextBlock Text="Neighbors: "/>
+                        <DataGrid ItemsSource="{Binding Neighbors}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="10">
-                        <TextBlock Text="Raiders"/>
-                        <ItemsControl ItemsSource="{Binding RaidingParties}"/>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Features"/>
+                            <ListBox ItemsSource="{Binding FeaturesString}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Text="Raiders"/>
+                            <ItemsControl ItemsSource="{Binding RaidingParties}"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Effects"/>
-                    <ListBox ItemsSource="{Binding WildernessEffectsString}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Monster Dens"/>
-                    <!--<DataGrid ItemsSource="{Binding Dens}"/>-->
-                    <ItemsControl ItemsSource="{Binding DensAsMonster}" ScrollViewer.CanContentScroll="True"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Dungeons"/>
-                    <DataGrid ItemsSource="{Binding Dungeons}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Ruins"/>
-                    <DataGrid ItemsSource="{Binding Ruins}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Keywords"/>
-                    <ListBox ItemsSource="{Binding Keywords}"/>
-                </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Effects"/>
+                        <ListBox ItemsSource="{Binding WildernessEffectsString}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Monster Dens"/>
+                        <!--<DataGrid ItemsSource="{Binding Dens}"/>-->
+                        <ItemsControl ItemsSource="{Binding DensAsMonster}" ScrollViewer.CanContentScroll="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Dungeons"/>
+                        <DataGrid ItemsSource="{Binding Dungeons}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Ruins"/>
+                        <DataGrid ItemsSource="{Binding Ruins}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Keywords"/>
+                        <ListBox ItemsSource="{Binding Keywords}"/>
+                    </StackPanel>
 
-            </StackPanel>
-            <StackPanel Grid.Column="1"  Margin="10">
-                <TextBlock Text="Monsters in area"/>
-                <ItemsControl ItemsSource="{Binding Monsters}" ScrollViewer.CanContentScroll="True"/>
-                <!-- Really should be an encounter table -->
-            </StackPanel>
-        </Grid>
-
+                </StackPanel>
+                <StackPanel Grid.Column="1"  Margin="10">
+                    <TextBlock Text="Monsters in area"/>
+                    <ItemsControl ItemsSource="{Binding Monsters}" ScrollViewer.CanContentScroll="True"/>
+                    <!-- Really should be an encounter table -->
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type local:Monster}">
         <Border BorderThickness="1" BorderBrush="DarkSlateGray" Padding="10" CornerRadius="6" Background="#FF1E1E2F" Margin="5">
-            <StackPanel>
-                <!-- Name + Level -->
-                <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="Gold"/>
-                <!-- Uri link -->
-                <TextBlock Margin="10">
-                    <Hyperlink NavigateUri="{Binding Uri}" x:Name="NavigateButton" RequestNavigate="Hyperlink_RequestNavigate" >
-                        View in Rules Reference
-                    </Hyperlink>
-                </TextBlock>
+            <ScrollViewer>
+                <StackPanel>
+                    <!-- Name + Level -->
+                    <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="Gold"/>
+                    <!-- Uri link -->
+                    <TextBlock Margin="10">
+                        <Hyperlink NavigateUri="{Binding Uri}" x:Name="NavigateButton" RequestNavigate="Hyperlink_RequestNavigate">
+                            View in Rules Reference
+                        </Hyperlink>
+                    </TextBlock>
 
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Level: " FontStyle="Italic" Margin="0,0,0,6" Foreground="LightGray">
+                            <Run Text="{Binding Level}"/>
+                            <Run Text="Frequency: " />
+                            <Run Text="{Binding Frequency}"/>
+                        </TextBlock>
 
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Level: " FontStyle="Italic" Margin="0,0,0,6" Foreground="LightGray"/>
-                    <TextBlock Text="{Binding Level}" FontStyle="Italic" Foreground="LightGray" Margin="2"/>
-
-
-                    <!-- Tags -->
-                    <WrapPanel Margin="0,0,0,6">
-                        <ItemsControl ItemsSource="{Binding CreatureTypeTags}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#334477" Padding="4" CornerRadius="4" Margin="10">
-                                        <TextBlock Text="{Binding}" Foreground="White"/>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </WrapPanel>
-
-                    <!-- Frequency & Predation -->
-                    <TextBlock Text="{Binding Frequency}" Foreground="LightSkyBlue" Margin="0,0,0,4"/>
+                        <!-- Tags -->
+                        <WrapPanel Margin="0,0,0,6">
+                            <ItemsControl ItemsSource="{Binding CreatureTypeTags}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#334477" Padding="4" CornerRadius="4" Margin="10">
+                                            <TextBlock Text="{Binding}" Foreground="White"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </WrapPanel>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </ScrollViewer>
         </Border>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type local:Person}">
+        <Border BorderThickness="1" CornerRadius="6" Padding="10"
+            Background="#FF1E1E2F" BorderBrush="DarkSlateGray" Margin="5">
+            <ScrollViewer>
+                <StackPanel>
+                    <!-- Name + Title -->
+                    <TextBlock FontSize="20" FontWeight="Bold"  Foreground="Gold">
+                        <Run Text="{Binding Name}" />
+                        <Run Text="," />
+                        <Run Text="{Binding Title}" FontStyle="Italic"/>
+                    </TextBlock>
+
+                    <StackPanel Orientation= "Horizontal">
+                        <TextBlock Text="{Binding CharacterClass}" FontWeight="SemiBold" />
+                        <TextBlock>
+                                <Run Text=":  "/> 
+                                <Run Text="{Binding Level}"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock>
+                            <Run Text="Race:"/> 
+                            <Run Text="{Binding Race}"/>
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="Alignment:"/> 
+                            <Run Text="{Binding Alignment}"/>
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="Patron Diety:"/> 
+                            <Run Text="{Binding PatronDiety}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </DataTemplate>
+
+    
+    <!--Build these out-->
+    <DataTemplate DataType="{x:Type local:Dungeon}">
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:Ruin}">
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type local:Diety}">
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:Encounter}">
+    </DataTemplate>
 </ResourceDictionary>

@@ -61,6 +61,58 @@ Content="Load region" Command="{Binding ImportRegionCommand}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <!--
+        <ItemsControl Grid.Row="4" ItemsSource="{Binding TilesSorted}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="5" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding DataContext.SelectTileCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                    CommandParameter="{Binding}"
+                    Padding="10"
+                    Margin="4"
+                    BorderThickness="2">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#222" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border BorderThickness="{TemplateBinding BorderThickness}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="6">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.SelectedTile, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Value="{x:Null}">
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding}" 
+                                         Value="{Binding DataContext.SelectedTile, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                        <Setter Property="BorderBrush" Value="Gold"/>
+                                        <Setter Property="Background" Value="#444" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!-->
 
     </Grid>
 </Window>
