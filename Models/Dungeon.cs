@@ -72,6 +72,7 @@ namespace DnDGenerator.Models
             return d;
         }
 
+        
         /// <summary>
         /// Uses the EncounterTable class to generate a table of random encounters.
         /// Random encounters are informed by the RuinType (clockwork beasts for a abandonded workshop, for instance.)

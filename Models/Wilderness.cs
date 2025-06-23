@@ -1,6 +1,7 @@
 ﻿using DnDGenerator.StaticCollections;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,11 @@ namespace DnDGenerator.Models
         private int NumRuins = 2;
         public List<Ruin> Ruins { get; set; } // Essentially just a dungeon, but above ground
         public List<OrganizedCrime>? OrganizedCriminals;
-        public List<string> Keywords { get; set; } // Used to search the Monster Manual for potential encounters.
+
+        public List<EnvironmentTag> EnvironmentTags { get; set; }
+        public List<CreatureTypeTag> CreatureTypeTags { get; set; }
+        public List<CreatureFamilyTag> CreatureFamilyTags { get; set; }
+        //public List<string> Keywords { get; set; } // Used to search the Monster Manual for potential encounters.
         EncounterTable EncounterTable { get; set; }
 
         public List<Monster> Monsters { get; set; }
@@ -44,7 +49,7 @@ namespace DnDGenerator.Models
             Name = SubType.ToString(); // Eventually we should do some fun random name generation
             GenerateEffects();
             GenerateFeatures();
-            GenerateKeywords();
+            GenerateTagsFromFeatures();
             GenerateRuins();
             GenerateDungeons();
             GenerateEncounterTable();
@@ -209,71 +214,25 @@ namespace DnDGenerator.Models
             }
         }
 
-        private void GenerateKeywords()
+        public void GenerateWildernessTagsFromDungeons(Wilderness parent) // probably does not need to be public
         {
-            if(Keywords is null)
-            {
-                Keywords = new();
-            }
-            // We don't have neighbors set yet and I want to work on the UI for a bit. Please come back to me soon!
-            
-            /*
-            if(Neighbors!.Where(x=>x.SubType == TileSubType.Village || x.SubType == TileSubType.City || x.SubType == TileSubType.Keep).Count() > 0)
-            {
-                Keywords.Add("Settlement");
-                Keywords.Add("Urban");
-            }
-            */
-            if (Effects.Contains(WildernessEffects.Druid_Conclave))
-            {
-                Keywords.Add("Druid");
-            }
-            if (Effects.Contains(WildernessEffects.Reality_Rift_Fae))
-            {
-                Keywords.Add("Fae");
-            }
-            if (Effects.Contains(WildernessEffects.Reality_Rift_Elemental))
-            {
-                Keywords.Add("Elemental");
-            }
-            if (Effects.Contains(WildernessEffects.Reality_Rift_Infernal))
-            {
-                Keywords.Add("Infernal");
-            }
-            if (Effects.Contains(WildernessEffects.Reality_Rift_Celestial))
-            {
-                Keywords.Add("Celestial");
-            }
 
-            // Add subtype to keywords (a forest will have forest monsters)
-            Keywords.Add(SubType.ToString());
-            // Add biome to keywords (temperate biome will have temperate monsters)
-            Keywords.Add(Biome.ToString());
-        }
-
-
-        private void GenerateDungeons()
-        {
-            Dungeons = new();
-            while(NumDungeons > 0)
+            if (Dungeons.Where(x => x.DungeonType == DungeonType.Natural_Cave).Count() > 0)
             {
-                Dungeons.Add(Dungeon.Create());
-                NumDungeons--;
-            }
-            if (Dungeons.Where(x=>x.DungeonType == DungeonType.Natural_Cave).Count() > 0)
-            {
-                Keywords.Add("Cave");
+                EnvironmentTags.Add(EnvironmentTag.Underground);
+                // Cave is a keyword as well... I worry that my current enums aren't granular enough
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Necromancer_Hideout).Count() > 0)
             {
-                Keywords.Add("Undead");
-                Keywords.Add("Necromancer");
-                Keywords.Add("Wizard");
+                CreatureTypeTags.Add(CreatureTypeTag.Undead);
+                CreatureTypeTags.Add(CreatureTypeTag.Necromancer);
+                CreatureTypeTags.Add(CreatureTypeTag.Wizard);
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Ancient_Tomb).Count() > 0)
             {
-                Keywords.Add("Undead");
+                CreatureTypeTags.Add(CreatureTypeTag.Undead);
             }
+            /* CONVERT TO CREATURETYPETAGS
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cult_Hideout).Count() > 0)
             {
                 Keywords.Add("Infernal"); // Eventually I would like to add granularity to the type of cults, but for now we can assume they're all demon worshippers
@@ -314,7 +273,7 @@ namespace DnDGenerator.Models
             }
             // Should really extract the type of humanoid from the dungeon and then add that as a keyword. Unfortunately don't have things wired up that way yet. Soon I guess!
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Humanoid_Stronghold).Count() > 0)
-            { 
+            {
                 Keywords.Add("Humanoid");
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cave_Druid_Glen).Count() > 0)
@@ -322,6 +281,50 @@ namespace DnDGenerator.Models
                 Keywords.Add("Cave");
                 Keywords.Add("Subterranean");
                 Keywords.Add("Druid");
+            }
+            */
+        }
+
+        private void GenerateTagsFromFeatures()
+        {
+            if(CreatureFamilyTags is null)
+            {
+                CreatureTypeTags = new();
+            }
+            if(CreatureFamilyTags is null)
+            {
+                CreatureFamilyTags = new();
+            }
+            if (Effects.Contains(WildernessEffects.Druid_Conclave))
+            {
+               CreatureTypeTags.Add(CreatureTypeTag.Druid);
+            }
+            if (Effects.Contains(WildernessEffects.Reality_Rift_Fae))
+            {
+                CreatureTypeTags.Add(CreatureTypeTag.Fae);
+            }
+            if (Effects.Contains(WildernessEffects.Reality_Rift_Elemental))
+            {
+                CreatureTypeTags.Add(CreatureTypeTag.Elemental);
+            }
+            if (Effects.Contains(WildernessEffects.Reality_Rift_Infernal))
+            {
+                CreatureTypeTags.Add(CreatureTypeTag.Infernal);
+            }
+            if (Effects.Contains(WildernessEffects.Reality_Rift_Celestial))
+            {
+                CreatureTypeTags.Add(CreatureTypeTag.Celestial);
+            }
+        }
+
+
+        private void GenerateDungeons()
+        {
+            Dungeons = new();
+            while(NumDungeons > 0)
+            {
+                Dungeons.Add(Dungeon.Create());
+                NumDungeons--;
             }
         }
 
@@ -331,6 +334,7 @@ namespace DnDGenerator.Models
             {
                 Ruins = new();
             }
+        /*  CONVERT TO CreatureTypeTags + EnvironmentTags based system!
             while(NumRuins > 0)
             {
                 Ruins.Add(Ruin.Create());
@@ -382,6 +386,7 @@ namespace DnDGenerator.Models
             {
                 Keywords.Add("Ethereal");
             }
+        */
         }
 
         // Should change this to exclusively hold predators, rather than any monster returned by encounter table
@@ -398,16 +403,19 @@ namespace DnDGenerator.Models
             }
         }
 
+        // Encounter tables empty until we appropriately refactor the tagging system. :( 
         private void GenerateEncounterTable()
         {
             List<Monster> myMonsters = new();
-            Keywords.Add("Common");
+            //Keywords.Add("Common");
+            /*
             foreach(string keyword in Keywords)
             {
                 IEnumerable<Monster> monsters = MonsterManual.Monsters.Where(x => x.Keywords.Contains(keyword));
 
                 myMonsters.AddRange(monsters);
             }
+            */
             EncounterTable = new(myMonsters);
         }
     }

@@ -75,6 +75,7 @@ namespace DnDGenerator.Models
             if(Monsters is null)
             {
                 Monsters = GenerateEncounterTable(PossibleMonsters);
+                Monsters.Add(MonsterManual.Monsters.First()); // Placeholder code to let my program compile until the tagging system is refactored.
             }
 
             Random rand = new();

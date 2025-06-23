@@ -235,6 +235,10 @@ namespace DnDGenerator.StaticCollections
         Construct = 11,
         Monstrosity = 12,
         Mutant = 13,
+        Druid = 14,
+        Plant = 15,
+        Wizard = 16,
+        Necromancer = 17
 
     }
 

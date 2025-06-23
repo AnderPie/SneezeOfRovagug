@@ -100,9 +100,29 @@ namespace DnDGenerator.Models
             foreach(Tile tile in TilesList)
             {
                 tile.SetNeighbors(TilesList);
+                ApplyThreat(tile);
             }
-            
+        }
 
+        /// <summary>
+        /// Applies regional threats to its tile parameter.
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void ApplyThreat(Tile tile)
+        {
+
+            if(RegionalThreats is null)
+            {
+                RegionalThreats = GenerateRegionalThreats();
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Underdark_Humanoid_Invasion))
+            {
+                if(nameof(tile) == nameof(Wilderness)) // Seems insane but OK...
+                {
+                    ((Wilderness)tile).Dungeons.Add(new());
+                }
+            }
         }
     }
 }
