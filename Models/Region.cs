@@ -120,7 +120,75 @@ namespace DnDGenerator.Models
             {
                 if(nameof(tile) == nameof(Wilderness)) // Seems insane but OK...
                 {
-                    ((Wilderness)tile).Dungeons.Add(new());
+                    ((Wilderness)tile).Dungeons.Add(Dungeon.Create(DungeonType.Underdark_Entrance));
+                    ((Wilderness)tile).RaidingParties.Add(MonsterManual.ReturnUnderdarkRaider());
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Underdark_Predator))
+            {
+                if(tile.TileType == "Wilderness")// Seems insane but OK...
+                {
+                    ((Wilderness)tile).Dens.Add(new(MonsterManual.ReturnUnderdarkPredator()));
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Dragon))
+            {
+                // We want to add a chance to encounter the same dragon between tiles, but don't have that logic built yet
+                WriteLine("Not implemented yet!");
+                /*
+                if (tile.TileType == "Wilderness")// Seems insane but OK...
+                {
+                    ((Wilderness)tile).Dens.Add(new(MonsterManual.ReturnUnderdarkPredator()));
+                }
+                */
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Infernal_Invasion))
+            {
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).CreatureTypeTags.Add(CreatureTraitTag.Infernal);
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Aboleth_Invasion))
+            {
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).CreatureFamilyTags.Add(CreatureFamilyTag.Aboleth);
+                }
+            }
+            // The idea is that if it is within the region, we add a high level stronghold representing the humanoid invader. but that is not implemented yet
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Humanoid_Invasion_Outside_Region) || RegionalThreats!.Contains(StaticCollections.RegionalThreats.Humanoid_Invasion_Within_Region))
+            {
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).RaidingParties.Add(MonsterManual.ReturnRaider());
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Necromancer))
+            {
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).CreatureTypeTags.Add(CreatureTraitTag.Undead);
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Behemoth)){
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).Dens.Add(new(MonsterManual.ReturnBehemoth())); // Custom tag for very large wandering non-dragon predators
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Druid))
+            {
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).Features.Add(WildernessFeature.Druid_Garden); 
+                }
+            }
+            if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Plague))
+            {
+                if (tile.TileType == "Wilderness")
+                {
+                    ((Wilderness)tile).Dens.Add(new(MonsterManual.ReturnPestilenceMonster()));
                 }
             }
         }

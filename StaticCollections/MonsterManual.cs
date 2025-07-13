@@ -1,6 +1,7 @@
 ﻿using DnDGenerator.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,12 @@ namespace DnDGenerator.StaticCollections
     {
         public static List<Monster> Monsters = new()
         {
-            new("Aapoph Granitescale", new(){CreatureTypeTag.Humanoid, CreatureTypeTag.Mutant}, new() {CreatureFamilyTag.Serpentfolk}, new () {EnvironmentTag.Common}, PredationTag.Humanioid, Frequency.Often, 
+            new("Aapoph Granitescale", new(){CreatureTraitTag.Humanoid, CreatureTraitTag.Mutant}, new() {CreatureFamilyTag.Serpentfolk}, new () {EnvironmentTag.Common}, PredationTag.Humanoid, Frequency.Often,
+                new("https://2e.aonprd.com/Monsters.aspx?ID=3184"),6),
+            new("Beast of Nurgle", new(){CreatureTraitTag.Demon, CreatureTraitTag.Devil, CreatureTraitTag.Daemon, CreatureTraitTag.Pestilence}, new(), new () {EnvironmentTag.Common}, PredationTag.LargePredator, Frequency.Often,
                 new("https://2e.aonprd.com/Monsters.aspx?ID=3184"),6), //new(){
-            new ("Aapoph Serpentfolk", new(){"Aapoph Serpentfolk","Humanoid","Mutant","Serpentfolk","Serpentfolk"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=3182"),3),
+            new ("Aapoph Serpentfolk", new(){CreatureTraitTag.Humanoid, CreatureTraitTag.Mutant }, new(){CreatureFamilyTag.Serpentfolk},
+                new() {EnvironmentTag.Common}, PredationTag.Humanoid, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=3182"),3),
             new("Aasimar Redeemer", new(){"Aasimar Redeemer","Aasimar","Human","Humanoid","Planar","Scion"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=333"),5),
             new("Abandoned Zealot", new(){"Abandoned Zealot","Incorporeal","Spirit","Undead"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=1033"),6),
             new("Abrikandilu", new(){"Abrikandilu","Demon","Fiend","Demon","Abyss"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=1110"),4),
@@ -2204,6 +2208,54 @@ namespace DnDGenerator.StaticCollections
             new("Zyss Serpentfolk", new(){"Zyss Serpentfolk","Humanoid","Serpentfolk","Serpentfolk"}, Frequency.Seldom, new("https://2e.aonprd.com/Monsters.aspx?ID=3181"),2)
 
         };
+
+        /// <summary>
+        /// Returns a monster that spreads pestilence
+        /// </summary>
+        /// <returns>The monster spreading pestilence</returns>
+        public static Monster ReturnPestilenceMonster()
+        {
+            Random rand = new();
+            List<Monster> spreadersOfPestilence = MonsterManual.Monsters.Where(x => x.CreatureTraitTags.Contains(CreatureTraitTag.Pestilence)).ToList();
+
+            return spreadersOfPestilence[rand.Next(0, spreadersOfPestilence.Count())];
+        }
+
+
+
+        internal static Monster ReturnUnderdarkRaider()
+        {
+            List<Monster> underdarkRaiders = MonsterManual.Monsters.Where(x => x.CreatureTraitTags.Contains(CreatureTraitTag.Humanoid) && x.EnvironmentTags.Contains(EnvironmentTag.Underground)).ToList();
+            Random rand = new();
+
+            return underdarkRaiders[rand.Next(0, underdarkRaiders.Count())];
+        }
+
+        internal static Monster ReturnUnderdarkPredator()
+        {
+            List<Monster> underdarkPredators = MonsterManual.Monsters.Where(x =>
+            (x.CreatureTraitTags.Contains(CreatureTraitTag.Beast) || x.CreatureTraitTags.Contains(CreatureTraitTag.Aberration) ||
+            x.CreatureTraitTags.Contains(CreatureTraitTag.Aberration) || x.CreatureTraitTags.Contains(CreatureTraitTag.Mutant)) &&
+            x.EnvironmentTags.Contains(EnvironmentTag.Underground)).ToList();
+            Random rand = new();
+
+            return underdarkPredators[rand.Next(0, underdarkPredators.Count())];
+        }
+
+        internal static Monster ReturnRaider()
+        {
+            List<Monster> raiders = MonsterManual.Monsters.Where(x => x.CreatureTraitTags.Contains(CreatureTraitTag.Humanoid)).ToList();
+            Random rand = new();
+
+            return raiders[rand.Next(0, raiders.Count())];
+        }
+
+        internal static Monster ReturnBehemoth()
+        {
+            List<Monster> behemoths = MonsterManual.Monsters.Where(x => x.PredationTag == PredationTag.LargePredator).ToList();
+            Random rand = new();
+            return behemoths[rand.Next(0, behemoths.Count())];
+        }
     }
 
 }

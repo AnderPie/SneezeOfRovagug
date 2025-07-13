@@ -27,7 +27,7 @@ namespace DnDGenerator.Models
         public List<OrganizedCrime>? OrganizedCriminals;
 
         public List<EnvironmentTag> EnvironmentTags { get; set; }
-        public List<CreatureTypeTag> CreatureTypeTags { get; set; }
+        public List<CreatureTraitTag> CreatureTypeTags { get; set; }
         public List<CreatureFamilyTag> CreatureFamilyTags { get; set; }
         //public List<string> Keywords { get; set; } // Used to search the Monster Manual for potential encounters.
         EncounterTable EncounterTable { get; set; }
@@ -224,13 +224,13 @@ namespace DnDGenerator.Models
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Necromancer_Hideout).Count() > 0)
             {
-                CreatureTypeTags.Add(CreatureTypeTag.Undead);
-                CreatureTypeTags.Add(CreatureTypeTag.Necromancer);
-                CreatureTypeTags.Add(CreatureTypeTag.Wizard);
+                CreatureTypeTags.Add(CreatureTraitTag.Undead);
+                CreatureTypeTags.Add(CreatureTraitTag.Necromancer);
+                CreatureTypeTags.Add(CreatureTraitTag.Wizard);
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Ancient_Tomb).Count() > 0)
             {
-                CreatureTypeTags.Add(CreatureTypeTag.Undead);
+                CreatureTypeTags.Add(CreatureTraitTag.Undead);
             }
             /* CONVERT TO CREATURETYPETAGS
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cult_Hideout).Count() > 0)
@@ -297,23 +297,23 @@ namespace DnDGenerator.Models
             }
             if (Effects.Contains(WildernessEffects.Druid_Conclave))
             {
-               CreatureTypeTags.Add(CreatureTypeTag.Druid);
+               CreatureTypeTags.Add(CreatureTraitTag.Druid);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Fae))
             {
-                CreatureTypeTags.Add(CreatureTypeTag.Fae);
+                CreatureTypeTags.Add(CreatureTraitTag.Fae);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Elemental))
             {
-                CreatureTypeTags.Add(CreatureTypeTag.Elemental);
+                CreatureTypeTags.Add(CreatureTraitTag.Elemental);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Infernal))
             {
-                CreatureTypeTags.Add(CreatureTypeTag.Infernal);
+                CreatureTypeTags.Add(CreatureTraitTag.Infernal);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Celestial))
             {
-                CreatureTypeTags.Add(CreatureTypeTag.Celestial);
+                CreatureTypeTags.Add(CreatureTraitTag.Celestial);
             }
         }
 
