@@ -418,7 +418,11 @@ namespace DnDGenerator.StaticCollections
         Wyrwood = 194,
         Xulgath = 195,
         Zombie = 196,
-        Pestilence = 197 // Spreaders of pestilence. Does not exist in Pathfinder keywords so will only return homebrew monsters :P 
+        Pestilence = 197, // Spreaders of pestilence. Does not exist in Pathfinder keywords so will only return homebrew monsters :P 
+        Charau = 198,
+        Sea = 198,
+        Wild = 198,
+        
 
         /*
         Humanoid = 1,
@@ -442,6 +446,7 @@ namespace DnDGenerator.StaticCollections
         */
     }
 
+    // TODO there is rich creature family tag data in Nekthys we can incorporate into this enum. for now tho this is fine I guess. 
     public enum CreatureFamilyTag : short
     {
         Orc = 1,
@@ -527,7 +532,7 @@ namespace DnDGenerator.StaticCollections
         Medium = 3,
         Large = 4,
         Huge = 5,
-        Gargatuan = 6
+        Gargantuan = 6
     }
 
 }

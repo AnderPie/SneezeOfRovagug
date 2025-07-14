@@ -27,7 +27,7 @@ namespace DnDGenerator.Models
         public List<OrganizedCrime>? OrganizedCriminals;
 
         public List<EnvironmentTag> EnvironmentTags { get; set; }
-        public List<CreatureTraitTag> CreatureTypeTags { get; set; }
+        public List<CreatureTraitTag> CreatureTraitTags { get; set; }
         public List<CreatureFamilyTag> CreatureFamilyTags { get; set; }
         //public List<string> Keywords { get; set; } // Used to search the Monster Manual for potential encounters.
         EncounterTable EncounterTable { get; set; }
@@ -140,7 +140,7 @@ namespace DnDGenerator.Models
                 
             foreach(WildernessEffects raiders in Effects.Where(x=> x == WildernessEffects.Raiding_Party))
             {
-                IEnumerable<Monster> humanoidRaiders = MonsterManual.Monsters.Where(monster => monster.Keywords.Contains("Humanoid"));
+                IEnumerable<Monster> humanoidRaiders = MonsterManual.Monsters.Where(monster => monster.CreatureTraitTags.Contains(CreatureTraitTag.Humanoid));
                 int roll = rand.Next(0, humanoidRaiders.Count());
                 RaidingParties.Add(humanoidRaiders.ToList()[roll]);
             }
@@ -224,13 +224,13 @@ namespace DnDGenerator.Models
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Necromancer_Hideout).Count() > 0)
             {
-                CreatureTypeTags.Add(CreatureTraitTag.Undead);
-                CreatureTypeTags.Add(CreatureTraitTag.Necromancer);
-                CreatureTypeTags.Add(CreatureTraitTag.Wizard);
+                CreatureTraitTags.Add(CreatureTraitTag.Undead);
+                CreatureTraitTags.Add(CreatureTraitTag.Necromancy);
+                CreatureTraitTags.Add(CreatureTraitTag.Arcane);
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Ancient_Tomb).Count() > 0)
             {
-                CreatureTypeTags.Add(CreatureTraitTag.Undead);
+                CreatureTraitTags.Add(CreatureTraitTag.Undead);
             }
             /* CONVERT TO CREATURETYPETAGS
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cult_Hideout).Count() > 0)
@@ -289,7 +289,7 @@ namespace DnDGenerator.Models
         {
             if(CreatureFamilyTags is null)
             {
-                CreatureTypeTags = new();
+                CreatureTraitTags = new();
             }
             if(CreatureFamilyTags is null)
             {
@@ -297,23 +297,27 @@ namespace DnDGenerator.Models
             }
             if (Effects.Contains(WildernessEffects.Druid_Conclave))
             {
-               CreatureTypeTags.Add(CreatureTraitTag.Druid);
+               CreatureTraitTags.Add(CreatureTraitTag.Elemental);
+               CreatureTraitTags.Add(CreatureTraitTag.Plant);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Fae))
             {
-                CreatureTypeTags.Add(CreatureTraitTag.Fae);
+                CreatureTraitTags.Add(CreatureTraitTag.Fey);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Elemental))
             {
-                CreatureTypeTags.Add(CreatureTraitTag.Elemental);
+                CreatureTraitTags.Add(CreatureTraitTag.Elemental);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Infernal))
             {
-                CreatureTypeTags.Add(CreatureTraitTag.Infernal);
+                CreatureTraitTags.Add(CreatureTraitTag.Demon);
+                CreatureTraitTags.Add(CreatureTraitTag.Devil);
+                CreatureTraitTags.Add(CreatureTraitTag.Daemon);
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Celestial))
             {
-                CreatureTypeTags.Add(CreatureTraitTag.Celestial);
+                CreatureTraitTags.Add(CreatureTraitTag.Celestial);
+                CreatureTraitTags.Add(CreatureTraitTag.Angel);
             }
         }
 
@@ -334,7 +338,6 @@ namespace DnDGenerator.Models
             {
                 Ruins = new();
             }
-        /*  CONVERT TO CreatureTypeTags + EnvironmentTags based system!
             while(NumRuins > 0)
             {
                 Ruins.Add(Ruin.Create());
@@ -342,51 +345,67 @@ namespace DnDGenerator.Models
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Small_Abandoned_Mage_Tower || x.RuinType == RuinType.Small_Abandoned_Mage_Tower).Count() > 0)
             {
-                Keywords.Add("Mage");
-                Keywords.Add("Arcane");
+                CreatureTraitTags.Add(CreatureTraitTag.Arcane);
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Small_Abandoned_Workshop|| x.RuinType == RuinType.Small_Abandoned_Workshop).Count() > 0)
             {
-                Keywords.Add("Mechanic");
+                CreatureTraitTags.Add(CreatureTraitTag.Construct);
+                CreatureTraitTags.Add(CreatureTraitTag.Clockwork);
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Genetic_Experimentation_Lab).Count() > 0)
             {
-                Keywords.Add("Psychic");
-                Keywords.Add("Genetic Experimentation");
+                CreatureTraitTags.Add(CreatureTraitTag.Aberration);
+                CreatureTraitTags.Add(CreatureTraitTag.Psychopomp);
+                CreatureTraitTags.Add(CreatureTraitTag.Mutant);
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Infernal_Gate).Count() > 0)
             {
-                Keywords.Add("Infernal");
+                CreatureTraitTags.Add(CreatureTraitTag.Demon);
+                CreatureTraitTags.Add(CreatureTraitTag.Daemon);
+                CreatureTraitTags.Add(CreatureTraitTag.Devil);
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Celestial_Gate).Count() > 0)
             {
-                Keywords.Add("Celestial");
+                CreatureTraitTags.Add(CreatureTraitTag.Celestial);
+                CreatureTraitTags.Add(CreatureTraitTag.Angel);
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Many_Doors_Gate).Count() > 0)
             {
-                Keywords.Add("Planeswalker"); // I need to make more use of this keyword!
+                CreatureTraitTags.Add(CreatureTraitTag.Aasimar);
+                CreatureTraitTags.Add(CreatureTraitTag.Aeon);
+                CreatureTraitTags.Add(CreatureTraitTag.Aesir);
+                CreatureTraitTags.Add(CreatureTraitTag.Agathion);
+                CreatureTraitTags.Add(CreatureTraitTag.Air);
+                CreatureTraitTags.Add(CreatureTraitTag.Fire);
+                CreatureTraitTags.Add(CreatureTraitTag.Elemental);
+                CreatureTraitTags.Add(CreatureTraitTag.Unholy);
+                // Right now this is just literally 'many doors' to planes, but later I am thinking of it as a door to the plane of many doors.
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Arid_Gate).Count() > 0)
             {
-                Keywords.Add("Arid");
+                // TODO: terrain and biome feature needs to be implemented
+                //
+                //CreatureTypeTags.Add(CreatureTraitTag);
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Frigid_Gate).Count() > 0)
             {
-                Keywords.Add("Frigid"); // That's odd, why is this polar bear wandering around the rainforest?
+                // TODO: terrain and biome feature needs to be implemented
+                CreatureTraitTags.Add(CreatureTraitTag.Cold);
+                //Keywords.Add("Frigid"); // That's odd, why is this polar bear wandering around the rainforest?
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Tropical_Gate).Count() > 0)
             {
-                Keywords.Add("Tropical");
+                //CreatureTypeTags.Add(CreatureTraitTag.);
+                // TODO: terrain and biome features need to be implemented
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Temperate_Gate).Count() > 0)
             {
-                Keywords.Add("Temperate");
+                // Todo: dont make me say it ago
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Ethereal_Gate).Count() > 0)
             {
-                Keywords.Add("Ethereal");
+                CreatureTraitTags.Add(CreatureTraitTag.Ethereal);
             }
-        */
         }
 
         // Should change this to exclusively hold predators, rather than any monster returned by encounter table
@@ -402,20 +421,20 @@ namespace DnDGenerator.Models
                 NumDens--;
             }
         }
-
+        // TODO figure out why only some wilderness types (mountain and desert ?? ) are properly generating creatures. 
+        // TODO Implement biome system
         // Encounter tables empty until we appropriately refactor the tagging system. :( 
         private void GenerateEncounterTable()
         {
             List<Monster> myMonsters = new();
-            //Keywords.Add("Common");
-            /*
-            foreach(string keyword in Keywords)
+            
+            
+            foreach(CreatureTraitTag tag in CreatureTraitTags)
             {
-                IEnumerable<Monster> monsters = MonsterManual.Monsters.Where(x => x.Keywords.Contains(keyword));
+                IEnumerable<Monster> monsters = MonsterManual.Monsters.Where(x => x.CreatureTraitTags.Contains(tag));
 
                 myMonsters.AddRange(monsters);
             }
-            */
             EncounterTable = new(myMonsters);
         }
     }

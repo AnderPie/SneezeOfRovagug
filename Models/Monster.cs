@@ -65,7 +65,7 @@ namespace DnDGenerator.Models
             AC = ac;
             Fortitude = fort;
             Reflex = reflex;
-            Fortitude = will;
+            Will = will;
             Perception = perception;
             Uri = uri;
             // TODO add environment tagging system (requires data cleaning)

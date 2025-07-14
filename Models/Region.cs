@@ -27,7 +27,7 @@ namespace DnDGenerator.Models
             this.Biome = Biome;
         }
 
-        public Region(Biome? biome = null, List<RegionalThreats>? threats = null) // The UseMe bool is used to separate this from the parameterless constructor, and is actually insane
+        public Region(Biome? biome = null, List<RegionalThreats>? threats = null) 
         {
             Random rand = new();
             if(biome is null)
@@ -146,7 +146,9 @@ namespace DnDGenerator.Models
             {
                 if (tile.TileType == "Wilderness")
                 {
-                    ((Wilderness)tile).CreatureTypeTags.Add(CreatureTraitTag.Infernal);
+                    ((Wilderness)tile).CreatureTraitTags.Add(CreatureTraitTag.Demon);
+                    ((Wilderness)tile).CreatureTraitTags.Add(CreatureTraitTag.Devil);
+                    ((Wilderness)tile).CreatureTraitTags.Add(CreatureTraitTag.Daemon);
                 }
             }
             if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Aboleth_Invasion))
@@ -168,7 +170,7 @@ namespace DnDGenerator.Models
             {
                 if (tile.TileType == "Wilderness")
                 {
-                    ((Wilderness)tile).CreatureTypeTags.Add(CreatureTraitTag.Undead);
+                    ((Wilderness)tile).CreatureTraitTags.Add(CreatureTraitTag.Undead);
                 }
             }
             if (RegionalThreats!.Contains(StaticCollections.RegionalThreats.Behemoth)){
