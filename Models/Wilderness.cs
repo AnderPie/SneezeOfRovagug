@@ -270,6 +270,8 @@ namespace DnDGenerator.Models
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Mad_Machinist_Lair).Count() > 0)
             {
                 Keywords.Add("Mechanic");
+                Keywords.Add("Construct");
+                Keywords.Add("Clockwork");
             }
             // Should really extract the type of humanoid from the dungeon and then add that as a keyword. Unfortunately don't have things wired up that way yet. Soon I guess!
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Humanoid_Stronghold).Count() > 0)
@@ -295,25 +297,45 @@ namespace DnDGenerator.Models
             {
                 CreatureFamilyTags = new();
             }
+            Keywords.Add("Animal");
             if (Effects.Contains(WildernessEffects.Druid_Conclave))
             {
                CreatureTypeTags.Add(CreatureTypeTag.Druid);
+                Keywords.Add("Druid");
+                Keywords.Add("Plant");
+                Keywords.Add("Arboreal");
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Fae))
             {
                 CreatureTypeTags.Add(CreatureTypeTag.Fae);
+                Keywords.Add("Fae");
+                Keywords.Add("Faerie");
+                Keywords.Add("Fairy");
+                Keywords.Add("Arboreal");
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Elemental))
             {
                 CreatureTypeTags.Add(CreatureTypeTag.Elemental);
+                Keywords.Add("Elemental");
+                Keywords.Add("Earth");
+                Keywords.Add("Air");
+                Keywords.Add("Fire");
+                Keywords.Add("Water");
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Infernal))
             {
                 CreatureTypeTags.Add(CreatureTypeTag.Infernal);
+                Keywords.Add("Infernal");
+                Keywords.Add("Fiend");
+                Keywords.Add("Demon");
+                Keywords.Add("Devil");
             }
             if (Effects.Contains(WildernessEffects.Reality_Rift_Celestial))
             {
                 CreatureTypeTags.Add(CreatureTypeTag.Celestial);
+                Keywords.Add("Angel");
+                Keywords.Add("Good");
+                Keywords.Add("Celestial");
             }
         }
 
@@ -344,10 +366,13 @@ namespace DnDGenerator.Models
             {
                 Keywords.Add("Mage");
                 Keywords.Add("Arcane");
+                Keywords.Add("Wizard");
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Small_Abandoned_Workshop|| x.RuinType == RuinType.Small_Abandoned_Workshop).Count() > 0)
             {
                 Keywords.Add("Mechanic");
+                Keywords.Add("Construct");
+                Keywords.Add("Clockwork");
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Genetic_Experimentation_Lab).Count() > 0)
             {
@@ -357,10 +382,16 @@ namespace DnDGenerator.Models
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Infernal_Gate).Count() > 0)
             {
                 Keywords.Add("Infernal");
+                Keywords.Add("Fiend");
+                Keywords.Add("Demon");
+                Keywords.Add("Devil");
+                Keywords.Add("Evil");
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Celestial_Gate).Count() > 0)
             {
                 Keywords.Add("Celestial");
+                Keywords.Add("Angel");
+                Keywords.Add("Good");
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Many_Doors_Gate).Count() > 0)
             {
@@ -369,6 +400,7 @@ namespace DnDGenerator.Models
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Arid_Gate).Count() > 0)
             {
                 Keywords.Add("Arid");
+                Keywords.Add("Desert");
             }
             if (Ruins.Where(x => x.RuinType == RuinType.Abandoned_Frigid_Gate).Count() > 0)
             {
@@ -403,11 +435,10 @@ namespace DnDGenerator.Models
             }
         }
 
-        // Encounter tables empty until we appropriately refactor the tagging system. :( 
         private void GenerateEncounterTable()
         {
             List<Monster> myMonsters = new();
-            //Keywords.Add("Common");
+            Keywords.Add("Common");
             
             foreach(string keyword in Keywords)
             {
