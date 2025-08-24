@@ -29,7 +29,7 @@ namespace DnDGenerator.Models
         public List<EnvironmentTag> EnvironmentTags { get; set; }
         public List<CreatureTypeTag> CreatureTypeTags { get; set; }
         public List<CreatureFamilyTag> CreatureFamilyTags { get; set; }
-        //public List<string> Keywords { get; set; } // Used to search the Monster Manual for potential encounters.
+        public List<string> Keywords { get; set; } = new(); // Used to search the Monster Manual for potential encounters.
         EncounterTable EncounterTable { get; set; }
 
         public List<Monster> Monsters { get; set; }
@@ -232,7 +232,7 @@ namespace DnDGenerator.Models
             {
                 CreatureTypeTags.Add(CreatureTypeTag.Undead);
             }
-            /* CONVERT TO CREATURETYPETAGS
+            
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cult_Hideout).Count() > 0)
             {
                 Keywords.Add("Infernal"); // Eventually I would like to add granularity to the type of cults, but for now we can assume they're all demon worshippers
@@ -282,7 +282,7 @@ namespace DnDGenerator.Models
                 Keywords.Add("Subterranean");
                 Keywords.Add("Druid");
             }
-            */
+
         }
 
         private void GenerateTagsFromFeatures()
@@ -334,7 +334,7 @@ namespace DnDGenerator.Models
             {
                 Ruins = new();
             }
-        /*  CONVERT TO CreatureTypeTags + EnvironmentTags based system!
+            //CONVERT TO CreatureTypeTags + EnvironmentTags based system!
             while(NumRuins > 0)
             {
                 Ruins.Add(Ruin.Create());
@@ -386,7 +386,7 @@ namespace DnDGenerator.Models
             {
                 Keywords.Add("Ethereal");
             }
-        */
+        
         }
 
         // Should change this to exclusively hold predators, rather than any monster returned by encounter table
@@ -408,14 +408,14 @@ namespace DnDGenerator.Models
         {
             List<Monster> myMonsters = new();
             //Keywords.Add("Common");
-            /*
+            
             foreach(string keyword in Keywords)
             {
                 IEnumerable<Monster> monsters = MonsterManual.Monsters.Where(x => x.Keywords.Contains(keyword));
 
                 myMonsters.AddRange(monsters);
             }
-            */
+            
             EncounterTable = new(myMonsters);
         }
     }

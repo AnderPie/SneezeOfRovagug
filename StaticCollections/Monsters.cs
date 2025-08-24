@@ -13,8 +13,8 @@ namespace DnDGenerator.StaticCollections
     {
         public static List<Monster> Monsters = new()
         {
-            new("Aapoph Granitescale", new(){CreatureTypeTag.Humanoid, CreatureTypeTag.Mutant}, new() {CreatureFamilyTag.Serpentfolk}, new () {EnvironmentTag.Common}, PredationTag.Humanioid, Frequency.Often, 
-                new("https://2e.aonprd.com/Monsters.aspx?ID=3184"),6), //new(){
+            //new("Aapoph Granitescale", new(){CreatureTypeTag.Humanoid, CreatureTypeTag.Mutant}, new() {CreatureFamilyTag.Serpentfolk}, new () {EnvironmentTag.Common}, PredationTag.Humanioid, Frequency.Often, 
+              //  new("https://2e.aonprd.com/Monsters.aspx?ID=3184"),6), //new(){
             new ("Aapoph Serpentfolk", new(){"Aapoph Serpentfolk","Humanoid","Mutant","Serpentfolk","Serpentfolk"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=3182"),3),
             new("Aasimar Redeemer", new(){"Aasimar Redeemer","Aasimar","Human","Humanoid","Planar","Scion"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=333"),5),
             new("Abandoned Zealot", new(){"Abandoned Zealot","Incorporeal","Spirit","Undead"}, Frequency.Often, new("https://2e.aonprd.com/Monsters.aspx?ID=1033"),6),
