@@ -103,7 +103,7 @@ namespace DnDGenerator.Models
             {
                 Effects = new();
             }
-            Random rand = new(); // Should really become a singleton. Oh well
+            Random rand = new(); // TODO rand should be a singleton
             int roll = rand.Next(1, 15);
             if(roll < 12)
             {
@@ -232,16 +232,22 @@ namespace DnDGenerator.Models
             {
                 CreatureTraitTags.Add(CreatureTraitTag.Undead);
             }
-            /* CONVERT TO CREATURETYPETAGS
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cult_Hideout).Count() > 0)
             {
-                Keywords.Add("Infernal"); // Eventually I would like to add granularity to the type of cults, but for now we can assume they're all demon worshippers
+                CreatureTraitTags.Add(CreatureTraitTag.Demon);
+                CreatureTraitTags.Add(CreatureTraitTag.Devil);
+                CreatureTraitTags.Add(CreatureTraitTag.Daemon);
+                CreatureTraitTags.Add(CreatureTraitTag.Humanoid);
+                CreatureTraitTags.Add(CreatureTraitTag.Occult);
             }
+            
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Bandit_Base).Count() > 0)
             {
-                Keywords.Add("Humanoid");
-                Keywords.Add("Bandit");
+                CreatureTraitTags.Add(CreatureTraitTag.Humanoid);
             }
+            // TODO CONVERT TO CREATURETYPETAGS
+
+            /*
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Underdark_Entrance).Count() > 0)
             {
                 Keywords.Add("Underdark");
