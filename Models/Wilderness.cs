@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace DnDGenerator.Models
 {
@@ -47,6 +49,8 @@ namespace DnDGenerator.Models
                 SubType = (TileSubType)subType;
             }
             Name = SubType.ToString(); // Eventually we should do some fun random name generation
+            GenerateTagsFromBiome();
+            GenerateTagsFromSubtype();
             GenerateEffects();
             GenerateFeatures();
             GenerateTagsFromFeatures();
@@ -72,6 +76,70 @@ namespace DnDGenerator.Models
             Monsters = EncounterTable!.Monsters;
         }
 
+        private void GenerateTagsFromSubtype()
+        {
+            if(this.SubType == TileSubType.Forest)
+            {
+                Keywords.Add("Forest");
+                Keywords.Add("Plant");
+            }
+            if (this.SubType == TileSubType.Prairie)
+            {
+                Keywords.Add("Prairie");
+                Keywords.Add("Plains");
+                Keywords.Add("Hills");
+            }
+            if (this.SubType == TileSubType.Desert)
+            {
+                Keywords.Add("Desert");
+                Keywords.Add("Hot");
+            }
+            if (this.SubType == TileSubType.Tundra)
+            {
+                Keywords.Add("Tundra");
+                Keywords.Add("Cold");
+                Keywords.Add("Arid");
+            }
+            if (this.SubType == TileSubType.Mountain)
+            {
+                Keywords.Add("Mountain");
+                Keywords.Add("Hills");
+
+            }
+        }
+
+        private void GenerateTagsFromBiome()
+        {
+            if (this.Biome == Biome.Temperate)
+            {
+                Keywords.Add("Temperate");
+            }
+            if (this.Biome == Biome.Tropical)
+            {
+                Keywords.Add("Tropical");
+            }
+            if (this.Biome == Biome.Frigid)
+            {
+                Keywords.Add("Frigid");
+                Keywords.Add("Tundra");
+                Keywords.Add("Ice");
+                Keywords.Add("Cold");
+                Keywords.Add("Artic");
+            }
+            if (this.Biome == Biome.Arid)
+            {
+                Keywords.Add("Desert");
+                Keywords.Add("Arid");
+                Keywords.Add("Hot");
+            }
+            if(this.Biome == Biome.Underground)
+            {
+                Keywords.Add("Cave");
+                Keywords.Add("Underdark");
+                Keywords.Add("Underground");
+                Keywords.Add("Subterranean");
+            }
+        }
 
         public Wilderness() // For deserialization
         {
@@ -220,6 +288,10 @@ namespace DnDGenerator.Models
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Natural_Cave).Count() > 0)
             {
                 EnvironmentTags.Add(EnvironmentTag.Underground);
+                Keywords.Add("Cave");
+                Keywords.Add("Underground");
+                Keywords.Add("Subterranean");
+                Keywords.Add("Underdark");
                 // Cave is a keyword as well... I worry that my current enums aren't granular enough
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Necromancer_Hideout).Count() > 0)
@@ -227,14 +299,20 @@ namespace DnDGenerator.Models
                 CreatureTypeTags.Add(CreatureTypeTag.Undead);
                 CreatureTypeTags.Add(CreatureTypeTag.Necromancer);
                 CreatureTypeTags.Add(CreatureTypeTag.Wizard);
+                Keywords.Add("Undead");
+                Keywords.Add("Necromancer");
+                Keywords.Add("Wizard");
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Ancient_Tomb).Count() > 0)
             {
                 CreatureTypeTags.Add(CreatureTypeTag.Undead);
+                Keywords.Add("Undead");
             }
             
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Cult_Hideout).Count() > 0)
             {
+                Keywords.Add("Demon");
+                Keywords.Add("Devil");
                 Keywords.Add("Infernal"); // Eventually I would like to add granularity to the type of cults, but for now we can assume they're all demon worshippers
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Bandit_Base).Count() > 0)
@@ -251,6 +329,7 @@ namespace DnDGenerator.Models
             {
                 Keywords.Add("Wizard");
                 Keywords.Add("Arcane");
+                Keywords.Add("Mage");
             }
             if (Dungeons.Where(x => x.DungeonType == DungeonType.Dragon_Lair).Count() > 0)
             {
@@ -438,7 +517,6 @@ namespace DnDGenerator.Models
         private void GenerateEncounterTable()
         {
             List<Monster> myMonsters = new();
-            Keywords.Add("Common");
             
             foreach(string keyword in Keywords)
             {
